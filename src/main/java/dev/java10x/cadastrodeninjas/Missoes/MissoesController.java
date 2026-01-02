@@ -4,30 +4,30 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping
+@RequestMapping("/missoes")
 public class MissoesController {
 
-    @PostMapping("/missoes/criar")
+    @PostMapping("/criar")
     public String CreateMissoes() {
         return "Missoes criadas";
     }
 
-    @GetMapping("/missoes/mostrarone")
+    @GetMapping("/mostrarone")
     public String ProcuraPorId() {
         return "Missao retornada";
     }
 
-    @GetMapping("/missoes/mostrarall")
+    @GetMapping("/mostrarall")
     public  String MostrarTodasAsMissoes() {
         return "Mostrando todas as Missoes";
     }
 
-    @DeleteMapping("/missoes/deletar")
+    @DeleteMapping("/deletar")
     public String DeletaUmaMissao() {
         return "Missao deletada";
     }
 
-    @PutMapping("/missoes/update")
+    @PutMapping("/update")
     public  String UpdateMissao() {
         return "Missao atualizada";
     }
