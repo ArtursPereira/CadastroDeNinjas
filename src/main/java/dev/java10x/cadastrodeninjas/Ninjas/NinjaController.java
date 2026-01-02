@@ -25,13 +25,13 @@ public class NinjaController {
         return "Ninja Criado";
     }
     //TODO: Mostrar ninja por ID (Update)
-    @GetMapping("/ninjaid")
-    public  String MostrarNinjaPorId() {
-        return "Mostra um ninja por ID";
+    @GetMapping("/listar/{id}") // O que o usuario escrever em ID vai buscar no banco de dados ex: localhost:8080/listar/1
+    public  NinjaModel listarNinjasPorId(@PathVariable Long id) { // @PathVariable [e um tipo de variavel que vai no patch naquele id por exemplo
+        return ninjaService.listarNinjasPorId(id);
     }
 
     //TODO Mostrar todos os ninjas (Update)
-    @GetMapping("/all")
+    @GetMapping("/listar")
     public List<NinjaModel> listarNinjas() {
         return ninjaService.listarNinjas();
     }
