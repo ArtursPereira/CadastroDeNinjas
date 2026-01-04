@@ -21,8 +21,8 @@ public class NinjaController {
 
     //TODO: Adicionar ninja (Create)
     @PostMapping("/create")
-    public String criarNinja() {
-        return "Ninja Criado";
+    public NinjaModel CreateNinja(@RequestBody NinjaModel ninjaModel) {
+        return ninjaService.CreateNinja(ninjaModel);
     }
     //TODO: Mostrar ninja por ID (Update)
     @GetMapping("/listar/{id}") // O que o usuario escrever em ID vai buscar no banco de dados ex: localhost:8080/listar/1
@@ -46,4 +46,5 @@ public class NinjaController {
     public  String DeletarPorId() {
         return "Ninja deletado";
     }
+
 }
