@@ -16,9 +16,9 @@ public class MissoesController {
         this.missoesService = missoesService;
     }
 
-    @PostMapping("/criar")
-    public String CreateMissoes() {
-        return "Missoes criadas";
+    @PostMapping("/create")
+    public MissoesModel CreateMissoes(@RequestBody MissoesModel missoesModel) {
+        return missoesService.createMissao(missoesModel);
     }
 
     @GetMapping("/listar/{id}")
