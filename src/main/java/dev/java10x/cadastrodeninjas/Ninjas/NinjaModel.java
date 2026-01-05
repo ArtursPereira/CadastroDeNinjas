@@ -5,8 +5,6 @@ import dev.java10x.cadastrodeninjas.Missoes.MissoesModel;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 // O comando Entity transforma uma classe em uma entity no banco de dados
 @Entity
 @Table(name = "tb_cadastro_de_ninjas") // Declara que estamos criando uma tabela
