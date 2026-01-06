@@ -22,6 +22,8 @@ public class NinjaModel {
     private String nome;
 
     private int idade;
+    @Column(name = "rank")
+    private String rank;
 
     //@ManyToOne um ninja tem apenas uma missao
     @ManyToOne
