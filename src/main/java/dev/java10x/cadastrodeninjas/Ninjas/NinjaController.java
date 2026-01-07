@@ -20,23 +20,23 @@ public class NinjaController {
     }
 
     @PostMapping("/create")
-    public NinjaModel CreateNinja(@RequestBody NinjaModel ninjaModel) {
-        return ninjaService.CreateNinja(ninjaModel);
+    public NinjaDTO CreateNinja(@RequestBody NinjaDTO ninja) {
+        return ninjaService.CreateNinja(ninja);
     }
 
     @GetMapping("/listar/{id}")
-    public  NinjaModel listarNinjasPorId(@PathVariable Long id) { // @PathVariable [e um tipo de variavel que vai no patch naquele id por exemplo
+    public  NinjaDTO listarNinjasPorId(@PathVariable Long id) { // @PathVariable [e um tipo de variavel que vai no patch naquele id por exemplo
         return ninjaService.listarNinjasPorId(id);
     }
 
     @GetMapping("/listar")
-    public List<NinjaModel> listarNinjas() {
+    public List<NinjaDTO> listarNinjas() {
         return ninjaService.listarNinjas();
     }
 
     //Put [e a juncao de Post + Get
     @PutMapping("/update/{id}")
-    public NinjaModel ninjaUpdate(@PathVariable Long id, @RequestBody NinjaModel ninjaModel) {
+    public NinjaDTO ninjaUpdate(@PathVariable Long id, @RequestBody NinjaDTO ninjaModel) {
         return ninjaService.ninjaUpdate(id, ninjaModel);
     }
 
