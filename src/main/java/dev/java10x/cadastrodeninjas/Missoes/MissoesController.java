@@ -2,6 +2,7 @@ package dev.java10x.cadastrodeninjas.Missoes;
 
 import dev.java10x.cadastrodeninjas.Ninjas.NinjaModel;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,23 +18,23 @@ public class MissoesController {
     }
 
     @PostMapping("/create")
-    public MissoesModel CreateMissoes(@RequestBody MissoesModel missoesModel) {
-        return missoesService.createMissao(missoesModel);
+    public MissoesDTO CreateMissao(@RequestBody MissoesDTO missoesDTO) {
+        return missoesService.createMissao(missoesDTO);
     }
 
     @GetMapping("/listar/{id}")
-    public MissoesModel ProcuraPorId(@PathVariable Long id) {
+    public MissoesDTO    ProcuraPorId(@PathVariable Long id) {
         return missoesService.listarMissaoPorId(id);
     }
 
     @GetMapping("/listar")
-    public List<MissoesModel> MostrarTodasAsMissoes() {
-        return missoesService.listarMissoes();
+    public ResponseEntity<List<MissoesDTO>> listarMissoes() {
+         return ResponseEntity.ok(missoesService.listarMissoes());
     }
 
     @DeleteMapping("/deletar")
-    public String DeletaUmaMissao() {
-        return "Missao deletada";
+    public void DeletaUmaMissao(Long id) {
+        missoesService.deleteMissao(id);
     }
 
     @PutMapping("/update")
