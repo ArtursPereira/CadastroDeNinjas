@@ -47,13 +47,13 @@ public class NinjaController {
 
     //Put [e a juncao de Post + Get
     @PutMapping("/update/{id}")
-    public ResponseEntity<NinjaDTO> ninjaUpdate(@PathVariable Long id, @RequestBody NinjaDTO ninjaModel) {
+    public ResponseEntity<?> ninjaUpdate(@PathVariable Long id, @RequestBody NinjaDTO ninjaModel) {
         NinjaDTO ninja = ninjaService.ninjaUpdate(id, ninjaModel);
         if(ninjaService.listarNinjasPorId(id) != null) {
             ResponseEntity.ok(ninja);
-        }else{
-            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não tem nenhum ninja com o id: " + id + " informado");
         }
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não tem nenhum ninja com o id: " + id + " informado");
+
     }
 
 
