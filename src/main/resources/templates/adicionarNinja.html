@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Ninja</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="url"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+
+        button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .btn-secondary:hover {
+            background: #d0d0d0;
+        }
+
+        .input-hint {
+            font-size: 12px;
+            color: #999;
+            margin-top: 5px;
+        }
+
+        .preview-image {
+            max-width: 150px;
+            max-height: 150px;
+            margin-top: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🥷 Cadastrar Novo Ninja</h1>
+    <p class="subtitle">Preencha os dados abaixo para adicionar um ninja</p>
+
+    <!-- ✅ Formulário Thymeleaf -->
+    <form th:action="@{/ninjas/ui/create}" th:object="${ninja}" method="post">
+
+        <!-- Campo: Nome -->
+        <div class="form-group">
+            <label for="nome">Nome Completo *</label>
+            <input type="text"
+                   id="nome"
+                   th:field="*{nome}"
+                   placeholder="Ex: Naruto Uzumaki"
+                   required />
+            <div class="input-hint">Nome completo do ninja</div>
+        </div>
+
+        <!-- Campo: Email -->
+        <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email"
+                   id="email"
+                   th:field="*{email}"
+                   placeholder="Ex: naruto@konoha.com"
+                   required />
+            <div class="input-hint">Email válido para contato</div>
+        </div>
+
+        <div class="form-group">
+            <label for="rank">Rank *</label>
+            <input type="text"
+                   id="rank"
+                   th:field="*{rank}"
+                   placeholder="Ex: Gennin"
+                   required />
+            <div class="input-hint">Nome completo do ninja</div>
+        </div>
+
+        <!-- Campo: Idade -->
+        <div class="form-group">
+            <label for="idade">Idade *</label>
+            <input type="number"
+                   id="idade"
+                   th:field="*{idade}"
+                   placeholder="Ex: 17"
+                   min="1"
+                   max="120"
+                   required />
+            <div class="input-hint">Idade do ninja (1-120 anos)</div>
+        </div>
+
+        <!-- Campo: URL da Imagem -->
+        <div class="form-group">
+            <label for="imgUrl">URL da Imagem</label>
+            <input type="url"
+                   id="imgUrl"
+                   th:field="*{imgUrl}"
+                   placeholder="Ex: https://exemplo.com/imagem.jpg"
+                   onchange="previewImage(this)" />
+            <div class="input-hint">Link da foto do ninja (opcional)</div>
+            <img id="preview" class="preview-image" alt="Preview" />
+        </div>
+
+        <!-- Botões -->
+        <div class="btn-group">
+            <button type="submit" class="btn-primary">
+                 Cadastrar Ninja
+            </button>
+            <button type="button" class="btn-secondary" onclick="window.location.href='/ninjas/ui/listar'">
+                 Cancelar
+            </button>
+        </div>
+    </form>
+</div>
+
+<script>
+    // Preview da imagem
+    function previewImage(input) {
+        const preview = document.getElementById('preview');
+        const url = input.value;
+
+        if (url) {
+            preview.src = url;
+            preview.style.display = 'block';
+            preview.onerror = function() {
+                this.style.display = 'none';
+                alert('URL de imagem inválida');
+            };
+        } else {
+            preview.style.display = 'none';
+        }
+    }
+</script>
+</body>
+</html>

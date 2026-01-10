@@ -41,8 +41,9 @@ public class NinjaController {
     }
 
     @GetMapping("/listar")
-    public List<NinjaDTO> listarNinjas() {
-        return ninjaService.listarNinjas();
+    public ResponseEntity<List<NinjaDTO>>  listarNinjas() {
+        List<NinjaDTO> ninjaDTOS = ninjaService.listarNinjas();
+        return ResponseEntity.ok(ninjaDTOS);
     }
 
     //Put [e a juncao de Post + Get
