@@ -26,11 +26,11 @@ public class NinjaController {
             @ApiResponse(responseCode = "201", description = "Created ninja with sucess"),
             @ApiResponse(responseCode = "404", description = "Error in the creating ninja")
     })
-    public ResponseEntity<String> CreateNinja(@RequestBody NinjaDTO ninja) {
+    public ResponseEntity<NinjaDTO> CreateNinja(@RequestBody NinjaDTO ninja) {
 
         NinjaDTO ninjanovo  = ninjaService.CreateNinja(ninja);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body("Ninja Criado com sucesso: " + ninjanovo.getNome() + " Id: " + ninjanovo.getId());
+                .body(ninjanovo);
     }
 
     @GetMapping("/listar/{id}")

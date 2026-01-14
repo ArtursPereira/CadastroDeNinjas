@@ -1,7 +1,6 @@
 package dev.java10x.cadastrodeninjas.Missoes;
 
-import dev.java10x.cadastrodeninjas.Ninjas.NinjaModel;
-import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,20 +10,27 @@ import java.util.List;
 @RequestMapping("/missoes")
 public class MissoesController {
 
-    private MissoesService missoesService;
+    private final MissoesService missoesService;
 
     public MissoesController(MissoesService missoesService) {
         this.missoesService = missoesService;
     }
 
     @PostMapping("/create")
-    public MissoesDTO CreateMissao(@RequestBody MissoesDTO missoesDTO) {
-        return missoesService.createMissao(missoesDTO);
+    public ResponseEntity<MissoesDTO> CreateMissao(@RequestBody MissoesDTO missoesDTO) {
+       MissoesDTO missoesDTO1 =  missoesService.createMissao(missoesDTO);
+       return ResponseEntity.status(HttpStatus.CREATED).body(missoesDTO1);
+
     }
 
     @GetMapping("/listar/{id}")
-    public MissoesDTO    ProcuraPorId(@PathVariable Long id) {
-        return missoesService.listarMissaoPorId(id);
+    public ResponseEntity<?>    ProcuraPorId(@PathVariable Long id) {
+        MissoesDTO missoesDTO = missoesService.listarMissaoPorId(id);
+        if(missoesDTO != null) {
+            return ResponseEntity.ok(missoesDTO);
+        }
+        return  ResponseEntity.status(HttpStatus.NOT_FOUND).body("Não tem nenhum ninja com o id:  + id +  informado");
+
     }
 
     @GetMapping("/listar")
@@ -35,10 +41,5 @@ public class MissoesController {
     @DeleteMapping("/deletar")
     public void DeletaUmaMissao(Long id) {
         missoesService.deleteMissao(id);
-    }
-
-    @PutMapping("/update")
-    public  String UpdateMissao() {
-        return "Missao atualizada";
     }
 }
